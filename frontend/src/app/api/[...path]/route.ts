@@ -83,6 +83,7 @@ async function proxy(request: NextRequest): Promise<Response> {
   }
 
   const out = new Headers();
+  out.set("x-unfold-debug", `secret=${Boolean(secret)},ip=${Boolean(clientIp)},vercel=${Boolean(process.env.VERCEL)}`); // TEMP
   upstream.headers.forEach((value, key) => {
     if (!HOP_BY_HOP.has(key.toLowerCase())) out.set(key, value);
   });
